@@ -25,9 +25,9 @@ func init() {
 	calculateCmd.
 		Flags().String("report", "report.json", "Файл отчета")
 	calculateCmd.
-		Flags().Float32("maxBudget", 100, "Максимальный бюджет")
+		Flags().Float32("maxBudget", 1000, "Максимальный бюджет для одного подарка")
 	calculateCmd.
-		Flags().Int32("maxCount", 10, "Максимальное количество позиций")
+		Flags().Int("maxCount", 10, "Максимальное количество позиций")
 }
 
 func runCalculate(cmd *cobra.Command, args []string) {
@@ -41,7 +41,7 @@ func runCalculate(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	catalogDataFile, err := cmd.Flags().GetString("children")
+	catalogDataFile, err := cmd.Flags().GetString("catalog")
 	if err != nil {
 		return
 	}
@@ -64,9 +64,13 @@ func runCalculate(cmd *cobra.Command, args []string) {
 
 	catalogBinData, err := os.ReadFile(catalogDataFile)
 	if err != nil {
-		slog.Error("Не могу найти файл '" + childrenDataFile + "'")
+		slog.Error("Не могу найти файл '" + catalogDataFile + "'")
 		return
 	}
+
+	// TODO: получить maxBudget из аргументов
+
+	// TODO: получить maxCount из аргументов
 
 	childrenData := domain.ChildrenData{}
 
@@ -75,6 +79,9 @@ func runCalculate(cmd *cobra.Command, args []string) {
 		slog.Error("Не могу разобрать файл '"+childrenDataFile+"'", slog.String("err", err.Error()))
 		return
 	}
+
+	maxCount := 10
+	maxBudget := 100.0
 
 	catalog := domain.CatalogData{}
 	err = json.Unmarshal(catalogBinData, &catalog)
@@ -88,8 +95,8 @@ func runCalculate(cmd *cobra.Command, args []string) {
 
 	for _, child := range childrenData.Children {
 		giftSelection := make([]domain.GiftSelection, 0)
-		cost := 0.0
 		//TODO: написать код подбора подарка
+		giftSelection, price := selectGiftsForChild(child, catalog.Items, maxCount, maxBudget)
 
 		report.Results = append(report.Results, domain.ChildResult{
 			ChildID:             child.ID,
@@ -99,12 +106,13 @@ func runCalculate(cmd *cobra.Command, args []string) {
 			SpecialRequirements: child.SpecialRequirements,
 			GiftSelection:       giftSelection,
 			CostSummary: domain.ChildCostSummary{
-				Cost:       cost,
+				Cost:       price,
 				ItemsCount: len(giftSelection),
 			},
 		})
 	}
 
+	//TODO: статистику
 	report.AgeGroupAnalysis = domain.AgeGroupAnalysis{
 		AgeGroup:      "",
 		MinAge:        0,
@@ -121,4 +129,22 @@ func runCalculate(cmd *cobra.Command, args []string) {
 	}
 
 	_ = os.WriteFile(reportFile, data, 0644)
+}
+
+// TODO: написать код подбора подарка
+// Нужно реализовать:
+func selectGiftsForChild(
+	child domain.Child,
+	catalog []domain.CatalogItem,
+	maxCount int,
+	maxBudget float64,
+) ([]domain.GiftSelection, float64) {
+	// Алгоритм:
+	// 1. Проверить возрастные ограничения
+	// 2. Проверить специальные требования
+	// 3. Подобрать подарки по приоритету
+	// 4. Проверить бюджетные ограничения
+	// 5. Вернуть результат выбранные подарки и сумму
+
+	return nil, 0
 }
