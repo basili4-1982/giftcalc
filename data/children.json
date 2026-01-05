@@ -1,0 +1,272 @@
+{
+  "version": "1.2",
+  "generated_at": "2024-12-15T14:30:00Z",
+  "description": "Список детей для расчета новогодних подарков от Деда Мороза - версия 2024",
+  "metadata": {
+    "total_count": 15,
+    "regions": [
+      "Москва",
+      "Санкт-Петербург",
+      "Новосибирск",
+      "Якутск",
+      "Сочи",
+      "Казань",
+      "Владивосток",
+      "Екатеринбург"
+    ],
+    "age_range": {
+      "min": 3,
+      "max": 16
+    },
+    "source": "Письма Деду Морозу 2024",
+    "data_format": "giftcalc-v1.2",
+    "special_requirements_keys": {
+      "dietary": [
+        "vegetarian",
+        "vegan",
+        "nuts_allergy",
+        "lactose_intolerant",
+        "gluten_free",
+        "diabetes",
+        "halal",
+        "kosher"
+      ],
+      "safety": [
+        "no_small_parts",
+        "hypoallergenic",
+        "non_toxic",
+        "washable",
+        "flame_retardant",
+        "bpa_free"
+      ],
+      "medical": [
+        "epilepsy",
+        "asthma",
+        "adhd_friendly",
+        "autism_friendly",
+        "hearing_aid_compatible",
+        "wheelchair_accessible"
+      ],
+      "other": [
+        "eco_friendly",
+        "educational",
+        "gender_neutral",
+        "bilingual",
+        "sustainable",
+        "charity_supported"
+      ]
+    }
+  },
+  "children": [
+    {
+      "id": 1,
+      "name": "Артём Фёдоров",
+      "age": 3,
+      "region": "Москва",
+      "notes": "Самый младший в группе, любит яркие цвета",
+      "tags": ["малыш", "любознательный"],
+      "special_requirements": {
+        "dietary": null,
+        "safety": ["no_small_parts", "non_toxic", "washable"],
+        "medical": null,
+        "other": ["educational"]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Михаил Попов",
+      "age": 4,
+      "region": "Санкт-Петербург",
+      "notes": "Любит конструкторы, собирает башни",
+      "tags": ["дошкольник", "конструктор"],
+      "special_requirements": {
+        "dietary": ["nuts_allergy"],
+        "safety": ["no_small_parts", "hypoallergenic"],
+        "medical": null,
+        "other": ["educational", "gender_neutral"]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Петя Иванов",
+      "age": 5,
+      "region": "Новосибирск",
+      "notes": "Активный, любит подвижные игры",
+      "tags": ["дошкольник", "спортивный"],
+      "special_requirements": {
+        "dietary": ["nuts_allergy", "lactose_intolerant"],
+        "safety": ["no_small_parts"],
+        "medical": ["asthma"],
+        "other": null
+      }
+    },
+    {
+      "id": 4,
+      "name": "Кирилл Новиков",
+      "age": 6,
+      "region": "Якутск",
+      "notes": "Первоклассник, учится читать, любит животных",
+      "tags": ["школьник", "добрый"],
+      "special_requirements": {
+        "dietary": null,
+        "safety": null,
+        "medical": null,
+        "other": ["educational", "eco_friendly"]
+      }
+    },
+    {
+      "id": 5,
+      "name": "Саша Петров",
+      "age": 7,
+      "region": "Москва",
+      "notes": "Хорошо учится, помогает родителям по дому",
+      "tags": ["отличник", "ответственный"],
+      "special_requirements": {
+        "dietary": ["vegetarian"],
+        "safety": null,
+        "medical": null,
+        "other": ["educational", "charity_supported"]
+      }
+    },
+    {
+      "id": 6,
+      "name": "Екатерина Волкова",
+      "age": 8,
+      "region": "Сочи",
+      "notes": "Занимается танцами и рисованием",
+      "tags": ["творческий", "активный"],
+      "special_requirements": {
+        "dietary": ["lactose_intolerant"],
+        "safety": ["washable"],
+        "medical": null,
+        "other": ["gender_neutral"]
+      }
+    },
+    {
+      "id": 7,
+      "name": "София Лебедева",
+      "age": 9,
+      "region": "Казань",
+      "notes": "Увлекается наукой, проводит эксперименты",
+      "tags": ["научный", "любознательный"],
+      "special_requirements": {
+        "dietary": ["diabetes"],
+        "safety": ["non_toxic"],
+        "medical": null,
+        "other": ["educational", "eco_friendly"]
+      }
+    },
+    {
+      "id": 8,
+      "name": "Маша Сидорова",
+      "age": 10,
+      "region": "Владивосток",
+      "notes": "Талантливая художница, участвует в выставках",
+      "tags": ["творческий", "талантливый"],
+      "special_requirements": {
+        "dietary": ["vegetarian"],
+        "safety": ["hypoallergenic"],
+        "medical": null,
+        "other": ["eco_friendly", "charity_supported"]
+      }
+    },
+    {
+      "id": 9,
+      "name": "Алиса Морозова",
+      "age": 11,
+      "region": "Екатеринбург",
+      "notes": "Волонтер в приюте для животных",
+      "tags": ["добрый", "ответственный"],
+      "special_requirements": {
+        "dietary": ["vegetarian", "vegan"],
+        "safety": null,
+        "medical": null,
+        "other": ["eco_friendly", "charity_supported", "sustainable"]
+      }
+    },
+    {
+      "id": 10,
+      "name": "Анна Козлова",
+      "age": 12,
+      "region": "Якутск",
+      "notes": "Победитель олимпиад по математике",
+      "tags": ["отличник", "интеллектуальный"],
+      "special_requirements": {
+        "dietary": ["halal"],
+        "safety": null,
+        "medical": null,
+        "other": ["educational", "bilingual"]
+      }
+    },
+    {
+      "id": 11,
+      "name": "Виктория Соколова",
+      "age": 13,
+      "region": "Москва",
+      "notes": "Играет на скрипке, мечтает о консерватории",
+      "tags": ["музыкальный", "творческий"],
+      "special_requirements": {
+        "dietary": ["kosher"],
+        "safety": null,
+        "medical": ["hearing_aid_compatible"],
+        "other": ["educational"]
+      }
+    },
+    {
+      "id": 12,
+      "name": "Дмитрий Смирнов",
+      "age": 14,
+      "region": "Санкт-Петербург",
+      "notes": "Программирует игры, участник хакатонов",
+      "tags": ["технический", "инновационный"],
+      "special_requirements": {
+        "dietary": ["gluten_free"],
+        "safety": ["bpa_free"],
+        "medical": ["adhd_friendly"],
+        "other": ["educational", "sustainable"]
+      }
+    },
+    {
+      "id": 13,
+      "name": "Иван Кузнецов",
+      "age": 15,
+      "region": "Новосибирск",
+      "notes": "Спортсмен, чемпион области по плаванию",
+      "tags": ["спортивный", "целеустремленный"],
+      "special_requirements": {
+        "dietary": ["diabetes"],
+        "safety": null,
+        "medical": null,
+        "other": ["gender_neutral"]
+      }
+    },
+    {
+      "id": 14,
+      "name": "Ольга Павлова",
+      "age": 15,
+      "region": "Сочи",
+      "notes": "Активистка экологического движения",
+      "tags": ["активный", "эко-активист"],
+      "special_requirements": {
+        "dietary": ["vegan"],
+        "safety": ["flame_retardant"],
+        "medical": null,
+        "other": ["eco_friendly", "sustainable", "charity_supported"]
+      }
+    },
+    {
+      "id": 15,
+      "name": "Максим Орлов",
+      "age": 16,
+      "region": "Казань",
+      "notes": "Инвалид-колясочник, победитель параолимпиад",
+      "tags": ["спортивный", "сильный духом"],
+      "special_requirements": {
+        "dietary": null,
+        "safety": null,
+        "medical": ["wheelchair_accessible"],
+        "other": ["sustainable", "educational"]
+      }
+    }
+  ]
+}
