@@ -1,6 +1,10 @@
 package main
 
-import "github.com/spf13/cobra"
+import (
+	"log/slog"
+
+	"github.com/spf13/cobra"
+)
 
 var productionCmd = &cobra.Command{
 	Use:   "production",
@@ -9,5 +13,5 @@ var productionCmd = &cobra.Command{
 }
 
 func runProduction(cmd *cobra.Command, args []string) {
-
+	slog.Info("Генерация производственного плана")
 }
