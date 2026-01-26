@@ -1,3 +1,4 @@
+```go
 package main
 
 import (
@@ -6,15 +7,29 @@ import (
 )
 
 func main() {
-	// Регистрация команд
+	registerCommands()
+	executeRootCommand()
+}
+
+// registerCommands регистрирует все дочерние команды в корневой команде
+func registerCommands() {
 	rootCmd.AddCommand(
 		calculateCmd,
 		costCmd,
 		productionCmd,
 	)
+}
 
+// executeRootCommand выполняет корневую команду и обрабатывает возможные ошибки
+func executeRootCommand() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		handleExecutionError(err)
 	}
 }
+
+// handleExecutionError обрабатывает ошибки выполнения команды
+func handleExecutionError(err error) {
+	fmt.Fprintln(os.Stderr, "Ошибка выполнения:", err)
+	os.Exit(1)
+}
+```
