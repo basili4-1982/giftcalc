@@ -140,11 +140,97 @@ func selectGiftsForChild(
 	maxBudget float64,
 ) ([]domain.GiftSelection, float64) {
 	// Алгоритм:
-	// 1. Проверить возрастные ограничения
-	// 2. Проверить специальные требования
-	// 3. Подобрать подарки по приоритету
-	// 4. Проверить бюджетные ограничения
-	// 5. Вернуть результат выбранные подарки и сумму
+	price := 0.0
+	count := 0
+	res := make([]domain.GiftSelection, 0, maxCount)
 
-	return nil, 0
+	customCatalog := catalog
+
+	if len(child.SpecialRequirements.Other) > 0 {
+		customCatalog = []domain.CatalogItem{}
+		for _, o := range child.SpecialRequirements.Other {
+			for _, c := range catalog {
+				switch o {
+				case domain.OtherEducational:
+					if c.Metadata.Educational {
+						customCatalog = append(customCatalog, c)
+						break
+					}
+				case domain.OtherBilingual:
+					if c.Metadata.Bilingual {
+						customCatalog = append(customCatalog, c)
+						break
+					}
+				case domain.OtherCharitySupported:
+					if c.Metadata.CharitySupported {
+						customCatalog = append(customCatalog, c)
+						break
+					}
+				case domain.OtherSustainable:
+					if c.Metadata.Durable {
+						customCatalog = append(customCatalog, c)
+						break
+					}
+				case domain.OtherEcoFriendly:
+					if c.Metadata.EcoFriendly {
+						customCatalog = append(customCatalog, c)
+						break
+					}
+				case domain.OtherGenderNeutral:
+					if c.Metadata.GenderNeutral {
+						customCatalog = append(customCatalog, c)
+						break
+					}
+				}
+			}
+		}
+	}
+
+	if len(child.SpecialRequirements.Medical) > 0 {
+		cc := []domain.CatalogItem{}
+		for _, m := range child.SpecialRequirements.Medical {
+			for _, item := range customCatalog {
+				switch m {
+				case domain.MedicalAsthma:
+					if !item.Metadata.HasFuzzyMaterial {
+						cc = append(cc, item)
+					}
+				case domain.DietaryHalal:
+					if !item.Metadata.CharitySupported {
+						cc = append(cc, item)
+					}
+				case domain.MedicalAutismFriendly:
+					if !item.Metadata.Tactile {
+						cc = append(cc, item)
+					}
+
+				}
+			}
+		}
+	}
+
+	customCatalog = cc
+}
+
+for _, catalogItem := range customCatalog {
+// 1. Проверить возрастные ограничения
+if catalogItem.MinAge > child.Age {
+continue
+}
+
+// 2. Проверить специальные требования
+if child.SpecialRequirements != nil {
+
+}
+
+// 4. Проверить бюджетные ограничения
+price += catalogItem.Price
+count++
+if count >= maxCount || price >= maxBudget {
+break
+}
+}
+
+// 5. Вернуть результат выбранные подарки и сумму
+return res, price
 }
