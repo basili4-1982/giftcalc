@@ -1,3 +1,4 @@
+```go
 package main
 
 import (
@@ -11,13 +12,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
+// Конфигурация приложения
+type config struct {
 	dataDir   string
 	verbose   bool
 	logLevel  string
 	logFormat string // "json" или "console"
 	logToFile string
-)
+}
+
+var cfg = &config{}
 
 var rootCmd = &cobra.Command{
 	Use:   "giftcalc",
@@ -25,17 +29,15 @@ var rootCmd = &cobra.Command{
 	Long: `GiftCalc CLI - инструмент Аналитического отдела Деда Мороза
 для расчета стоимости и комплектации индивидуальных подарков для детей.`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		// Обработка сигналов для graceful shutdown
 		setupSignalHandling()
 	},
 	PersistentPostRun: func(cmd *cobra.Command, args []string) {
-		// Синхронизация логгера при завершении
-		if err := logger.Sync(); err != nil {
-			// Игнорируем ошибку при завершении
-		}
+		// Синхронизация логгера при завершении, ошибки игнорируются
+		_ = logger.Sync()
 	},
 }
 
+// Execute запускает корневую команду и обрабатывает ошибки выполнения
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		slog.Error("Ошибка выполнения команды",
@@ -46,27 +48,37 @@ func Execute() {
 }
 
 func init() {
-	// Глобальные флаги
-	rootCmd.PersistentFlags().StringVarP(&dataDir, "data-dir", "d", "./data", "Каталог с данными")
-	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Подробный вывод")
-	rootCmd.PersistentFlags().StringVar(&logLevel, "log-level", "info",
+	initFlags()
+}
+
+// initFlags инициализирует глобальные флаги приложения
+func initFlags() {
+	rootCmd.PersistentFlags().StringVarP(&cfg.dataDir, "data-dir", "d", "./data", 
+		"Каталог с данными")
+	rootCmd.PersistentFlags().BoolVarP(&cfg.verbose, "verbose", "v", false, 
+		"Подробный вывод")
+	rootCmd.PersistentFlags().StringVar(&cfg.logLevel, "log-level", "info",
 		"Уровень логирования (debug, info, warn, error, fatal)")
-	rootCmd.PersistentFlags().StringVar(&logFormat, "log-format", "console",
+	rootCmd.PersistentFlags().StringVar(&cfg.logFormat, "log-format", "console",
 		"Формат логов (json, console)")
-	rootCmd.PersistentFlags().StringVar(&logToFile, "log-file", "",
+	rootCmd.PersistentFlags().StringVar(&cfg.logToFile, "log-file", "",
 		"Файл для записи логов (если не указан - stdout)")
 }
 
+// setupSignalHandling настраивает обработку сигналов для graceful shutdown
 func setupSignalHandling() {
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 
-	go func() {
-		sig := <-sigChan
-		logger.Sugar().Infow("Получен сигнал завершения",
-			"signal", sig.String(),
-		)
-
-		os.Exit(0)
-	}()
+	go handleSignals(sigChan)
 }
+
+// handleSignals обрабатывает полученные сигналы завершения
+func handleSignals(sigChan <-chan os.Signal) {
+	sig := <-sigChan
+	logger.Sugar().Infow("Получен сигнал завершения",
+		"signal", sig.String(),
+	)
+	os.Exit(0)
+}
+```
